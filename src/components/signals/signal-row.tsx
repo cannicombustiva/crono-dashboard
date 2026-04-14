@@ -48,7 +48,7 @@ export const SignalRow = ({
           {isWebView ? (
             <>
               viewed{" "}
-              <span className="text-[#00C896] font-medium underline">{signal.highlight}</span>{" "}
+              <span className="text-[#00C896] font-medium">{signal.highlight}</span>{" "}
               of your website for 65 sec
             </>
           ) : (
