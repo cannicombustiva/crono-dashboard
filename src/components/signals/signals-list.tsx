@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { signals as initialSignals, type Signal } from "../../data/mock-data";
 import { SignalRow } from "./signal-row";
 import { Card } from "../card";
@@ -6,17 +6,17 @@ import { Card } from "../card";
 export const SignalsList = () => {
   const [signals, setSignals] = useState<Signal[]>(initialSignals);
 
-  const unreadCount = signals.filter((s) => s.unread).length;
+  const unreadCount = useMemo(() => signals.filter((s) => s.unread).length, [signals]);
 
-  const handleComplete = (id: number) => {
+  const handleComplete = useCallback((id: number) => {
     setSignals((prev) =>
       prev.map((s) => (s.id === id ? { ...s, unread: false } : s))
     );
-  };
+  }, []);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = useCallback((id: number) => {
     setSignals((prev) => prev.filter((s) => s.id !== id));
-  };
+  }, []);
 
   return (
     <Card className="px-5 py-4 h-full flex flex-col">
